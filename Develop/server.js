@@ -27,24 +27,27 @@ app.get('/api/notes', (req, res) =>
 
 app.post('/api/notes', (req, res) => {
     const { title, text } = req.body
-    // fs.readFileSync('./db/db.json')
     if (title && text) {
         const newNote = {
             title,
             text,
-            note_id: uuid()
+            id: uuid()
         };
 
-        const response = {
-            status: 'success',
-            body: newNote,
-        };
-
-        res.status(201).json(response);
+        notesDb.push(newNote);
+        fs.writeFile('./db/db.json', JSON.stringify(notesDb), (err) => {
+            err ? console.log(err) : console.log('Success, new note created');
+        });
+        res.status(201);
     } else {
         res.status(500).json('Error in creating new note')
     };
 });
+
+// app.delete('/api/notes/:id', (req, res) => {
+//     const noteId = req.params.id
+//     let notes = fs.readFile('./db/db.json')
+// })
 
 app.get('*', (req, res) => 
     res.sendFile(path.join(__dirname, 'public/index.html'))
