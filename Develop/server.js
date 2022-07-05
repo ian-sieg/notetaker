@@ -35,19 +35,24 @@ app.post('/api/notes', (req, res) => {
         };
 
         notesDb.push(newNote);
-        fs.writeFile('./db/db.json', JSON.stringify(notesDb), (err) => {
-            err ? console.log(err) : console.log('Success, new note created');
-        });
+        fs.writeFileSync('./db/db.json', JSON.stringify(notesDb));
         res.status(201);
     } else {
         res.status(500).json('Error in creating new note')
     };
 });
 
-// app.delete('/api/notes/:id', (req, res) => {
-//     const noteId = req.params.id
-//     let notes = fs.readFile('./db/db.json')
-// })
+app.delete('/api/notes/:id', (req, res) => {
+    const noteId = req.params.id
+    const allNotes = JSON.parse(fs.readFileSync('./db/db.json'))
+
+    allNotes.forEach(element => {
+        if(noteId === element.id){
+            allNotes.splice(allNotes.indexOf(element), 1)
+            fs.writeFileSync('./db/db.json', JSON.stringify(allNotes))
+        }
+    });
+})
 
 app.get('*', (req, res) => 
     res.sendFile(path.join(__dirname, 'public/index.html'))
