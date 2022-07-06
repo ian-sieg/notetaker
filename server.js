@@ -51,7 +51,7 @@ app.post('/api/notes', (req, res) => {
 //Delete a note based on its ID
 app.delete('/api/notes/:id', (req, res) => {
     const noteId = req.params.id
-    const allNotes = JSON.parse(fs.readFileSync('./db/db.json'))
+    let allNotes = JSON.parse(fs.readFileSync('./db/db.json'))
 
     allNotes.forEach(element => {
         if(noteId === element.id){
@@ -60,8 +60,6 @@ app.delete('/api/notes/:id', (req, res) => {
             fs.writeFile('./db/db.json', JSON.stringify(allNotes), (err, data) => {
                 if (err) throw err;
             })
-        } else {
-            res.status(500).json('Error in deleting note')
         }
     })
     res.status(200).json(allNotes)
