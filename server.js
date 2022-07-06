@@ -61,7 +61,7 @@ app.delete('/api/notes/:id', (req, res) => {
             })
         }
     });
-    res.status(201).json(notesDb);
+    res.status(200).json(notesDb);
 })
 
 //Wildcard route for any path that's not previously defined
@@ -69,4 +69,4 @@ app.get('*', (req, res) =>
     res.sendFile(path.join(__dirname, 'public/index.html'))
 );
 
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`))
+app.listen(PORT, () => console.log(`Server listening at http://localhost:${PORT}`))
