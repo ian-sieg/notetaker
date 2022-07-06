@@ -52,17 +52,6 @@ app.delete('/api/notes/:id', (req, res) => {
 
     fs.writeFileSync('./db/db.json', JSON.stringify(allNotes))
     res.status(200).json(allNotes)
-
-    // allNotes.forEach(element => {
-    //     if(noteId === element.id){
-    //         allNotes.splice(allNotes.indexOf(element), 1)
-
-    //         fs.writeFile('./db/db.json', JSON.stringify(allNotes), (err, data) => {
-    //             if (err) throw err;
-    //         })
-    //     }
-    // })
-    // res.status(200).json(allNotes)
 })
 
 //Wildcard route for any path that's not previously defined
