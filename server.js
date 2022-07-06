@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(express.static('public'));
 
-//Serves up index.html at the root route
+//Homepage route
 app.get('/', (req, res) =>
     res.sendFile(path.join(__dirname, 'public/index.html'))
 );
@@ -60,9 +60,11 @@ app.delete('/api/notes/:id', (req, res) => {
             fs.writeFile('./db/db.json', JSON.stringify(allNotes), (err, data) => {
                 if (err) throw err;
             })
+        } else {
+            res.status(500).json('Error in deleting note')
         }
     })
-    res.status(201).json(notesDb)
+    res.status(200).json(allNotes)
 })
 
 //Wildcard route for any path that's not previously defined
