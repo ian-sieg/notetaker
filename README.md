@@ -13,7 +13,7 @@ Once you have finished composing your note you can click on the save icon in the
 
 ## Video
 
-
+https://user-images.githubusercontent.com/98928887/177652706-e417b515-741b-494b-bdf8-4268f7d9f03e.mp4
 
 ## Deployed Webpage
 
