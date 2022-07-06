@@ -53,16 +53,21 @@ app.delete('/api/notes/:id', (req, res) => {
     const noteId = req.params.id
     let allNotes = JSON.parse(fs.readFileSync('./db/db.json'))
 
-    allNotes.forEach(element => {
-        if(noteId === element.id){
-            allNotes.splice(allNotes.indexOf(element), 1)
+    allNotes = allNotes.filter((elem) => elem.id != noteId)
 
-            fs.writeFile('./db/db.json', JSON.stringify(allNotes), (err, data) => {
-                if (err) throw err;
-            })
-        }
-    })
+    fs.writeFileSync('./db/db.json', JSON.stringify(allNotes))
     res.status(200).json(allNotes)
+
+    // allNotes.forEach(element => {
+    //     if(noteId === element.id){
+    //         allNotes.splice(allNotes.indexOf(element), 1)
+
+    //         fs.writeFile('./db/db.json', JSON.stringify(allNotes), (err, data) => {
+    //             if (err) throw err;
+    //         })
+    //     }
+    // })
+    // res.status(200).json(allNotes)
 })
 
 //Wildcard route for any path that's not previously defined
