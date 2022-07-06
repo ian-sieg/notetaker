@@ -13,11 +13,6 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(express.static('public'));
 
-//Homepage route
-app.get('/', (req, res) =>
-    res.sendFile(path.join(__dirname, 'public/index.html'))
-);
-
 //Takes the user to the /notes page when they click on the 'get started' button
 app.get('/notes', (req, res) =>
     res.sendFile(path.join(__dirname, 'public/notes.html'))
@@ -51,7 +46,7 @@ app.post('/api/notes', (req, res) => {
 //Delete a note based on its ID
 app.delete('/api/notes/:id', (req, res) => {
     const noteId = req.params.id
-    let allNotes = JSON.parse(fs.readFileSync('./db/db.json'))
+    let allNotes = JSON.parse(fs.readFileSync('./db/db.json', 'utf-8'))
 
     allNotes = allNotes.filter((elem) => elem.id != noteId)
 
